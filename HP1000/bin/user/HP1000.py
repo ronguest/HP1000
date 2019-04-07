@@ -381,7 +381,7 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
                     if network_retry_count > 0:
                         sock.close()
                         # Try accessing the network again after a short break
-                        sleep(self.retry_wait)
+                        time.sleep(self.retry_wait)
                         continue
                     else:
                         # Run out of attempts
@@ -404,7 +404,7 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
                         network_retry_count -= 1
                         if network_retry_count > 0:
                             # Try accessing the network again after a short break
-                            sleep(self.retry_wait)
+                            time.sleep(self.retry_wait)
                             break
                         else:
                             # Run out of attempts
@@ -430,7 +430,7 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
                         network_retry_count -= 1
                         if network_retry_count > 0:
                             # Try accessign the network again after a short break
-                            sleep(self.retry_wait)
+                            time.sleep(self.retry_wait)
                             continue
                         else:
                             # Run out of attempts
@@ -508,7 +508,7 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
                     network_retry_count -= 1
                     if network_retry_count > 0:
                         # Try accessing the network again after a short break
-                        sleep(self.retry_wait)
+                        time.sleep(self.retry_wait)
                         self.ws_socket.close()
                         self.ws_socket = None
                         continue
@@ -528,7 +528,7 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
                 except struct.error as e:
                     network_retry_count -= 1
                     if network_retry_count > 0:
-                        sleep(self.retry_wait)
+                        time.sleep(self.retry_wait)
                         self.ws_socket.close()
                         self.ws_socket = None
                         continue
