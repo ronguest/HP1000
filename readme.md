@@ -145,10 +145,9 @@ access one discussed here.
 # Installation instructions
 Please consider the information in the 're-requisites' section.
 1) run the installer:
-
-    sudo cd <path to weewx directory>
-    sudo python ./bin/wee_extension --install <path to file>/HP1000
-    sudo python ./bin/wee_config --reconfigure
+* sudo cd <path to weewx directory>
+* sudo python ./bin/wee_extension --install <path to file>/HP1000
+* sudo python ./bin/wee_config --reconfigure
 	
 The last command will (eventually) list all of the known drivers. Select the
 number next to 'HP1000'.
