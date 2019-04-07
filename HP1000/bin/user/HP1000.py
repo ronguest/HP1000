@@ -764,7 +764,7 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
         
     def getHistoryData( self, year, record_count, starting_record):
         # Build the command packet
-		loginf("getHistoryData")
+	loginf("getHistoryData")
 
         cmd_packet = struct.pack('8s8s16s2i2hi',
             'PC2000', 'READ', 'HISTORY_DATA',
@@ -789,7 +789,7 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
         while len(rx_data) < pkt_length:
             # the full packet is being send in small chunks
             rx_data += self.ws_socket.recv(1024)
-		loginf("Return rx_data")
+            loginf("Return rx_data")
         return rx_data
 
     def genStartupRecords(self, lastTimestamp):
@@ -797,7 +797,7 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
         #If we can't then the function will raise an exception
         self.connectToWeatherStation()
         loginf("Retrieving startup records")
-		loginf("Timestamp - %s" % lastTimestamp)
+	loginf("Timestamp - %s" % lastTimestamp)
 
         
         while True:            
@@ -826,7 +826,7 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
             else:
                 start_date = datetime.datetime.fromtimestamp(lastTimestamp)
                 last_record_date = start_date
-				loginf("start_data - %s" % start_date)
+		loginf("start_data - %s" % start_date)
 				
                 for index, ws_year in \
                             reversed(list(enumerate(interp_data[7:15],7))):
@@ -834,7 +834,7 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
                         # We have data for the required year
                         # Find the date of the first record for this year
                         year_index = index
-						loginf("We have data for required year")
+			loginf("We have data for required year")
                         break;
                 if year_index is None:
                     # The weather station does not have the requested start year
@@ -848,7 +848,7 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
                 lower = 0
                 upper = interp_data[year_index + 8] - 1  # max index for records held for that year
 
-				loginf("year - %s" % year)
+		loginf("year - %s" % year)
                 while True:
                     if lower == upper:
                         # the lower and upper indicies are the same
@@ -860,7 +860,7 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
                     # weather station to respond. The alternative is to read
                     # multiple records at a time but in the early stages of the binary
                     # search, the records are a long way apart so there is little gain
-					loginf("sample - %s" % sample)
+                    loginf("sample - %s" % sample)
 
                     rec_data = self.getHistoryData( year, 1, sample)
                 
@@ -872,7 +872,7 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
 
                     # While we have the data, also record the records daily rain
                     last_rain_value = struct.unpack('i', rec_data[76:80])[0] / 10.0
-					loginf("last_rain_value - %s" % last_rain_value)                
+                    loginf("last_rain_value - %s" % last_rain_value)                
                     if start_date == record_datetime:
                         # The values are the same - return sample index + 1
                         sample += 1
@@ -957,7 +957,7 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
                         _packet['UV'] = None if rec_data[18] == 32767 else int(round(rec_data[18] / 250))   # Convert uW/cm2 to UVI
                         _packet['radiation'] = None if rec_data[19] == 2147483647 else rec_data[19] / 1267.0    # 126.7 lux/(w/m^2)
                         _packet['interval'] = 5
-						loginf("yield packet")                        
+			loginf("yield packet")                        
                         yield _packet
                 
                         # Set up for the next record
