@@ -314,6 +314,7 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
                 sock.settimeout(self.socket_timeout)
                 bcData = "PC2000\0\0SEARCH\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
                 retry_counter = self.retry_count
+		network_retry_count = self.max_retry
                 sender_addr = None
                 while True:
 #                        loginf('Sending broadcast request')
